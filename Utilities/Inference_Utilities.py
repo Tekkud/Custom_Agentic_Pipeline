@@ -202,7 +202,7 @@ async def tool_loop(matches, context, llm, agent_name, original_task, suppress_c
                 avail = True
         
         if avail == False:
-            from Main_Helpers import format_tools
+            from .Main_Helpers import format_tools
             tools_str = format_tools(availtools)
             rejection_msg = f"The tool named {result['name']} does not exist. You cannot call this tool. Don't try to call this tool name again. The only available tools are as follows: {tools_str}"
             msgu.add_message(llm, context, rejection_msg, "user")

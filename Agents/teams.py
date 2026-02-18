@@ -1,5 +1,5 @@
 import Utilities as u
-import team as t
+from Agents import team as t
 import copy
 import os
 

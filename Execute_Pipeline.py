@@ -3,8 +3,8 @@
 # ─────────────────────────────────────────────────────────────
 import Utilities as u
 import argparse
-import team as t
-import teams as ts
+from Agents import team as t
+from Agents import teams as ts
 import os
 import pickle
 import llama_cpp
