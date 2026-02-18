@@ -8,7 +8,7 @@ import teams as ts
 import os
 import pickle
 import llama_cpp
-import global_context
+from System_Prompts import global_context
 from pynput import keyboard
 from MCP import MCP_Client as mcp
 import asyncio
