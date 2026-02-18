@@ -12,7 +12,7 @@ import global_context
 from pynput import keyboard
 from MCP import MCP_Client as mcp
 import asyncio
-import Main_Helpers as mh
+
 
 
 # ─────────────────────────────────────────────────────────────
@@ -28,38 +28,38 @@ async def instantiate_context(task):
         llama_cpp.LLM: The loaded LLM instance
     """
     # 1. Parse Arguments:
-    args = await mh.parseargs()
+    args = await u.parseargs()
 
     # 2. Start Server/Client:
-    print(mh.bcolors.OKBLUE + "Initializing MCP Protocol..." + mh.bcolors.ENDC + mh.bcolors.DULLGREY)
+    print(u.bcolors.OKBLUE + "Initializing MCP Protocol..." + u.bcolors.ENDC + u.bcolors.DULLGREY)
     await mcp.init_client("MCP/MCP_Server.py")
 
     # 3. Load Supplemental Info:
     supplemental_info_string = ""
     if args.load:
-        print(mh.bcolors.ENDC + mh.bcolors.OKBLUE + "\nLoading Files/Directory..." + mh.bcolors.ENDC + mh.bcolors.DULLGREY)
-        supplemental_info_string, _ = mh.load_supplemental(args.load)
+        print(u.bcolors.ENDC + u.bcolors.OKBLUE + "\nLoading Files/Directory..." + u.bcolors.ENDC + u.bcolors.DULLGREY)
+        supplemental_info_string, _ = u.load_supplemental(args.load)
 
     # 4. Load Tools Info:
     tools_string = ""
-    tools_string = await mh.load_tools()
+    tools_string = await u.load_tools()
 
     # 5. Load Model:
-    print(mh.bcolors.ENDC + mh.bcolors.OKBLUE + "\nLoading Model..." + mh.bcolors.ENDC + mh.bcolors.DULLGREY)
+    print(u.bcolors.ENDC + u.bcolors.OKBLUE + "\nLoading Model..." + u.bcolors.ENDC + u.bcolors.DULLGREY)
     llm = u.load_model("/home/harry/Downloads/Qwen3-Coder-30B-A3B-Instruct-IQ4_XS.gguf")
-    print(mh.bcolors.ENDC)
+    print(u.bcolors.ENDC)
 
     # 6. Load Initial Request
     initial_request = f"\n[[INITIAL USER REQUEST: {task}]]\n"
 
     # 7. Initialize Base Context
-    print(mh.bcolors.ENDC + mh.bcolors.OKBLUE + "Generating KV Cache..." + mh.bcolors.ENDC + mh.bcolors.DULLGREY)
+    print(u.bcolors.ENDC + u.bcolors.OKBLUE + "Generating KV Cache..." + u.bcolors.ENDC + u.bcolors.DULLGREY)
     context_string = global_context.GLOBAL_CONTEXT + tools_string + supplemental_info_string + initial_request + "</GLOBAL_CONTEXT>"
     context = [{"role": "system", "content": context_string}]
-    await mh.init_kv_cache(context, llm)
-    print(mh.bcolors.ENDC)
+    await u.init_kv_cache(context, llm)
+    print(u.bcolors.ENDC)
 
-    print(mh.bcolors.HEADER + '-'*15 + "Begin Pipeline" + '-'*15 + mh.bcolors.ENDC)
+    print(u.bcolors.HEADER + '-'*15 + "Begin Pipeline" + '-'*15 + u.bcolors.ENDC)
 
     return llm
 
@@ -77,7 +77,7 @@ async def create_teams(llm, task):
     Returns:
         tuple: Management object and list of teams
     """
-    print(mh.bcolors.ENDC + mh.bcolors.OKBLUE +"\nInitializing Directory Structure..." + mh.bcolors.ENDC)
+    print(u.bcolors.ENDC + u.bcolors.OKBLUE +"\nInitializing Directory Structure..." + u.bcolors.ENDC)
     teams = []
     add_inst = ""
     add_inst = input("Additional Directory Instructions *Optional*:\n   ")
@@ -88,7 +88,7 @@ async def create_teams(llm, task):
     create_files = ts.Folder_Planner(teams = teams, request= request)
     teams = await create_files.plan(llm = llm)
     master_plan = create_files.master_plan
-    print(mh.bcolors.ENDC + mh.bcolors.OKBLUE + "Structure Initialized" + mh.bcolors.ENDC)
+    print(u.bcolors.ENDC + u.bcolors.OKBLUE + "Structure Initialized" + u.bcolors.ENDC)
 
     management_info = ts.Teams_Info(prime_directive = task, master_plan = master_plan)
     management = ts.Teams(teams = teams, teams_info = management_info, directory_planner = create_files)
@@ -107,17 +107,17 @@ async def pipeline_loop(management, list_of_teams, llm):
         llm: The loaded LLM instance
     """
     while True:
-        commands = mh.input_mgr.get_input("Commands (type 'idle' to auto-run): \n   ")
+        commands = u.input_mgr.get_input("Commands (type 'idle' to auto-run): \n   ")
         print("Response Recorded")
         if commands.lower() == "idle":
-            mh.input_mgr.idle_mode = True
+            u.input_mgr.idle_mode = True
             print("[Idle mode - press any key to resume]")
             # Don't take other inputs this iteration, skip to processing
             kv_supplement = ""
             management.teams_info.overall_feedback = ""
         else:
-            kv_supplement = mh.input_mgr.get_input("OPTIONAL KV SUPPLEMENT: ")
-            management.teams_info.overall_feedback = mh.input_mgr.get_input("Feedback/Instruction: \n   ")
+            kv_supplement = u.input_mgr.get_input("OPTIONAL KV SUPPLEMENT: ")
+            management.teams_info.overall_feedback = u.input_mgr.get_input("Feedback/Instruction: \n   ")
             print("Response Recorded")
         
         if kv_supplement:
@@ -169,8 +169,8 @@ async def main():
     This function orchestrates the entire system startup and execution flow
     """
     # 1. Get Instructions:
-    task = input(mh.bcolors.ENDC + mh.bcolors.OKBLUE + "\nInstructions:"+ mh.bcolors.ENDC + mh.bcolors.OKGREEN + "\n    ")
-    print(mh.bcolors.ENDC)
+    task = input(u.bcolors.ENDC + u.bcolors.OKBLUE + "\nInstructions:"+ u.bcolors.ENDC + u.bcolors.OKGREEN + "\n    ")
+    print(u.bcolors.ENDC)
 
     # 2. Load All Utilities
     llm = await instantiate_context(task)
@@ -188,5 +188,5 @@ async def main():
 try:
     asyncio.run(main())
 finally:
-    mh.input_mgr.stop_listener()
+    u.input_mgr.stop_listener()
    # asyncio.run(mcp.cleanup())
