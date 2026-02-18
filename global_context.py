@@ -258,7 +258,7 @@ SECTION 2 (optional): Team dialogue
 - Answers to other teams
 - Clarifications on shared interfaces
 - Format: Team XXXX: [≤4 sentences, concrete, information-dense]
-- Can address [TEAM_REVIEW_MANAGER]: [message]
+
 
 RULES:
 - Check changelog before requesting (avoid duplicates)

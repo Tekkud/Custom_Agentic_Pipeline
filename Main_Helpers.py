@@ -2,7 +2,7 @@ import Utilities as u
 import argparse
 import os
 from pynput import keyboard
-import MCP_Client as mcp
+from MCP import MCP_Client as mcp
 
 class InputManager:
     def __init__(self):
@@ -114,7 +114,7 @@ async def load_tools():
     #Add available tools to context
     availtools = await mcp.get_tools()
     tools_toprint = format_tools(availtools)
-    tools_string = "\n<tools>\n" + tools_toprint + "\n</tools>\n" + "These are the ONLY available tools. There are no other tools.\n"
+    tools_string = "\n<tools>\n" + tools_toprint + "\n</tools>\n" + "The only tools that you can use are the ones listed here.\n"
     return tools_string
 
 async def init_kv_cache(context, llm):

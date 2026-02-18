@@ -10,7 +10,7 @@ import re
 import importlib.util
 import ctypes
 import ast
-import MCP_Client as mcp
+from MCP import MCP_Client as mcp
 from . import Message_Utilities as msgu
 from . import String_Utilities as stru
 from . import constants as c

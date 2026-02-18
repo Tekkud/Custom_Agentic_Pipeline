@@ -4,7 +4,7 @@ from . import Message_Utilities as msgu
 from . import constants as c
 import re
 import copy
-import MCP_Client as mcp
+from MCP import MCP_Client as mcp
 
 def generate_output(llm, context, current_role, seed = None, max_tokens = 30000, suppress_caching = False):
     import random
