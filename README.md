@@ -81,7 +81,7 @@ An Agentic Directory Generating Pipeline
   * KV cache is unloaded only once per iteration
     * *Note: Inter-cycle cache clearing is done via ring buffer write pointer reset, which is not stable under certain contexts, such as flash attention. 
     It is used to increase the speed of context transition overhead in the target environment. 
-    Ensure your environment supports this feature before utilizing* 
+    Ensure your environment supports this feature before running* 
 
 
 
