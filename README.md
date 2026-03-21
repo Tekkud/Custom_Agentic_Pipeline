@@ -1,7 +1,7 @@
 # Custom_Agentic_Pipeline
 
-A custom agentic pipeline done using llama.cpp
 [![Diagram](Diagram.png)](Diagram.png)
+An Agentic Directory Generating Pipeline
 ## Features:
 
 * MCP protocol
