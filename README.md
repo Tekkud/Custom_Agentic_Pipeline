@@ -78,7 +78,6 @@ An Agentic Directory Generating Pipeline
   * Only most recent changelog entries from each active team are included in shared cache
   * Only most recent structure updates included
   * Debugger removes closed bug reports and provides new report each iteration, old report is cleared
-##
 
 
 
@@ -91,8 +90,3 @@ An Agentic Directory Generating Pipeline
 
 
 
-
-
-
-
-* 
