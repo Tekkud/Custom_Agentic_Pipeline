@@ -112,9 +112,11 @@ def load_supplemental(args):
 
 async def load_tools():
     #Add available tools to context
+    tools_string = "\n------------------------\nTool Instructions Start\n------------------------\n"
+    tools_string += "## Here is a list of available tools. The only tools available to you are the following: \n"
     availtools = await mcp.get_tools()
     tools_toprint = format_tools(availtools)
-    tools_string = "\n<tools>\n" + tools_toprint + "\n</tools>\n" + "The only tools that you can use are the ones listed here.\n"
+    tools_string = "\n<tools>\n" + tools_toprint + "\n</tools>\n"
     return tools_string
 
 async def init_kv_cache(context, llm):

@@ -53,7 +53,7 @@ async def instantiate_context(task):
 
     # 7. Initialize Base Context
     print(u.bcolors.ENDC + u.bcolors.OKBLUE + "Generating KV Cache..." + u.bcolors.ENDC + u.bcolors.DULLGREY)
-    context_string = global_context.GLOBAL_CONTEXT + tools_string + supplemental_info_string + initial_request + "</GLOBAL_CONTEXT>"
+    context_string = "</GLOBAL_CONTEXT>\n" + tools_string + global_context.GLOBAL_CONTEXT + supplemental_info_string + initial_request + "</GLOBAL_CONTEXT>"
     context = [{"role": "system", "content": context_string}]
     await u.init_kv_cache(context, llm)
     print(u.bcolors.ENDC)

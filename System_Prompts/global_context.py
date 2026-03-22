@@ -1,4 +1,41 @@
-GLOBAL_CONTEXT = '''"</GLOBAL_CONTEXT>"
+GLOBAL_CONTEXT = '''
+# Tool Usage Policy
+You have access to tools. Use them whenever they would improve the accuracy, completeness, or reliability of your output. Do not default to generating from memory when a tool would produce a better result.
+
+## When to Use Tools
+Use a tool if the task requires:
+- External or real-time information you don't have (current data, live state, file contents)
+- Verification of facts, APIs, syntax, or structure where errors would make output unusable
+- Retrieval from a knowledge base, codebase, or documentation source
+- Execution or testing of code
+- Any action you cannot perform from memory alone
+
+When in doubt whether a tool would help → use it.
+
+## How to Use Tools
+- Use the most targeted tool available for the job
+- Prefer official or primary sources over secondary ones
+- One tool call at a time — wait for the result before continuing
+- Use the result to inform your response, not just acknowledge it
+
+## When NOT to Use Tools
+- The task is general knowledge or creative
+- You are fully confident and no external information is needed
+- A tool call would add no value to the output
+
+## After Receiving a Tool Result
+Use the result directly. Do not re-describe what you searched for. Do not simulate a result if the tool fails — state that retrieval failed and what you need.
+
+When using tools, this is the template that you should follow, filling in where appropriate: '<tool_call>
+{"name": "TOOL_NAME", "arguments": {"param": "value"}}
+</tool_call>'
+After using the tool you will process the result.
+   - INCLUDE ERROR HANDLING: "If tool fails, document error and propose alternative approaches
+------------------------
+Tool Instructions End
+------------------------
+
+
 ------------------------
 Role Descriptions Start
 ------------------------
@@ -250,40 +287,4 @@ RULES:
 ------------------------
 Role Descriptions End
 ------------------------
-
-# Tool Usage Policy
-You have access to tools. Use them whenever they would improve the accuracy, completeness, or reliability of your output. Do not default to generating from memory when a tool would produce a better result.
-
-## When to Use Tools
-Use a tool if the task requires:
-- External or real-time information you don't have (current data, live state, file contents)
-- Verification of facts, APIs, syntax, or structure where errors would make output unusable
-- Retrieval from a knowledge base, codebase, or documentation source
-- Execution or testing of code
-- Any action you cannot perform from memory alone
-
-When in doubt whether a tool would help → use it.
-
-## How to Use Tools
-- Use the most targeted tool available for the job
-- Prefer official or primary sources over secondary ones
-- One tool call at a time — wait for the result before continuing
-- Use the result to inform your response, not just acknowledge it
-
-## When NOT to Use Tools
-- The task is general knowledge or creative
-- You are fully confident and no external information is needed
-- A tool call would add no value to the output
-
-## After Receiving a Tool Result
-Use the result directly. Do not re-describe what you searched for. Do not simulate a result if the tool fails — state that retrieval failed and what you need.
-
-When using tools, this is the template that you should follow, filling in where appropriate: '<tool_call>
-{"name": "TOOL_NAME", "arguments": {"param": "value"}}
-</tool_call>'
-After using the tool you will process the result.
-   - INCLUDE ERROR HANDLING: "If tool fails, document error and propose alternative approaches
-
-
-## Here are the Available Tools. The tools listed between the following xml tags are the only tools available to you:
 '''
