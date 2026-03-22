@@ -1,4 +1,4 @@
-import pickle
+
 from . import global_kv as gkv
 import os
 import re
@@ -25,37 +25,18 @@ def gen_kv_cache_from_string(llm, messages):
 
     llm.eval(tokens)
 
-
-
-    # Save KV cache to disk
     kv_state = llm.save_state()
-    with open(KV_CACHE_FILE, "wb") as f:
-        pickle.dump(kv_state, f)
     gkv.base_state = kv_state
-
-    # Save prefix messages to disk
-    with open(PREFIX_FILE, "wb") as f:
-        pickle.dump(messages, f)
     gkv.prefix = messages
 
     return gkv.base_state, gkv.prefix
 
 def load_prefix():
     """Load prefix messages into memory if gkv.prefix is None"""
-    if getattr(gkv, "prefix", None) is None:
-        if not os.path.exists(PREFIX_FILE):
-            raise RuntimeError("Prefix file does not exist. Run gen_kv_cache_from_string first.")
-        with open(PREFIX_FILE, "rb") as f:
-            gkv.prefix = pickle.load(f)
     return gkv.prefix
 
 def load_kv_cache():
-    """Load KV cache into memory if gkv.base_state is None"""
-    if getattr(gkv, "base_state", None) is None:
-        if not os.path.exists(KV_CACHE_FILE):
-            raise RuntimeError("KV cache file does not exist. Run gen_kv_cache_from_string first.")
-        with open(KV_CACHE_FILE, "rb") as f:
-            gkv.base_state = pickle.load(f)
+    """Load KV cache into memory if gkv.base_state is None"""#removed for now-- To-Do: add this back in
     return gkv.base_state
 
 

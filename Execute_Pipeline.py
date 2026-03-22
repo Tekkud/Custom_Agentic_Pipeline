@@ -6,7 +6,6 @@ import argparse
 from Agents import team as t
 from Agents import teams as ts
 import os
-import pickle
 import llama_cpp
 from System_Prompts import global_context
 from pynput import keyboard
